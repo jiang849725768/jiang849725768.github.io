@@ -1,0 +1,249 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>初识爬虫 | Gridea</title>
+<link rel="shortcut icon" href="https://jiang849725768.github.io/favicon.ico?v=1623071735835">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://jiang849725768.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="初识爬虫 | Gridea - Atom Feed" href="https://jiang849725768.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="初学python爬虫，尝试爬取指定的百度图片，主要使用requests库以及正则表达式搜索
+
+先在目录下创建一个专门的文件夹，用于存放下载的图片
+os.makedirs('./img/', exist_ok=True)
+
+读取网址html文..." />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://jiang849725768.github.io">
+  <img class="avatar" src="https://jiang849725768.github.io/images/avatar.png?v=1623071735835" alt="">
+  </a>
+  <h1 class="site-title">
+    Gridea
+  </h1>
+  <p class="site-description">
+    温故而知新
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              初识爬虫
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-03-10
+              </span>
+              <span>
+                3 min read
+              </span>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>初学python爬虫，尝试爬取指定的百度图片，主要使用requests库以及正则表达式搜索</p>
+<hr>
+<p>先在目录下创建一个专门的文件夹，用于存放下载的图片</p>
+<pre><code class="language-python">os.makedirs('./img/', exist_ok=True)
+</code></pre>
+<p>读取网址html文档并找出其中的图片链接，因为很喜欢广末凉子，这里的URL用的是广末凉子的百度图片搜索结果</p>
+<pre><code class="language-python">URL = 'http://image.baidu.com/search/flip?tn=baiduimage&amp;ie=utf-8&amp;word=%E5%B9%BF%E6%9C%AB%E5%87%89%E5%AD%90'
+html = requests.get(URL).text
+</code></pre>
+<p>通过正则表达式找出图片链接，即<code>objURL</code>后的连接，<code>re.S</code>代表正则表达式中的<code>.</code>可以用来表示<code>\n</code></p>
+<pre><code class="language-python">pics_url = re.findall('&quot;objURL&quot;:&quot;(.*?)&quot;', html, re.S)
+</code></pre>
+<p>下载是通过<code>request.get</code>读取图片链接，通过在文件夹下创立新的jpg文件并写入读取到的内容的方式来实现图片的下载，当图片超出指定下载数时停止爬取</p>
+<pre><code class="language-python">for pic_url in pics_url:
+    print(f&quot;正在下载第{num+1}张图:{pic_url}&quot;)
+    try:
+        if pic_url:
+            pic = requests.get(pic_url, timeout=7)
+        else:
+            continue
+    except BaseException:
+        print(&quot;下载失败&quot;)
+        num += 1
+        continue
+    else:
+        picture = open(f&quot;./img/{num+1}.jpg&quot;,'wb')
+        picture.write(pic.content)
+        picture.close()
+        num += 1
+    finally:
+        if num &gt;= Max_num:
+            break
+</code></pre>
+<p>整体代码如下所示</p>
+<pre><code class="language-python">import os
+import re
+import requests
+#from bs4 import BeautifulSoup
+
+num = 0
+Max_num = 100
+
+os.makedirs('./img/', exist_ok=True)
+
+URL = 'http://image.baidu.com/search/flip?tn=baiduimage&amp;ie=utf-8&amp;word=%E5%B9%BF%E6%9C%AB%E5%87%89%E5%AD%90'
+html = requests.get(URL).text
+
+pics_url = re.findall('&quot;objURL&quot;:&quot;(.*?)&quot;', html, re.S)
+
+for pic_url in pics_url:
+    print(f&quot;正在下载第{num+1}张图:{pic_url}&quot;)
+    try:
+        if pic_url:
+            pic = requests.get(pic_url, timeout=7)
+        else:
+            continue
+    except BaseException:
+        print(&quot;下载失败&quot;)
+        num += 1
+        continue
+    else:
+        picture = open(f&quot;./img/{num+1}.jpg&quot;,'wb')
+        picture.write(pic.content)
+        picture.close()
+        num += 1
+    finally:
+        if num &gt;= Max_num:
+            break
+            
+print('下载结束')
+
+</code></pre>
+<p>运行之后发现下载的图片只有60张，而不是指定的100张</p>
+<figure data-type="image" tabindex="1"><img src="https://cdn.jsdelivr.net/gh/jiang849725768/PrivateImgHost/img/20200310164910.png" alt="结果图片" loading="lazy"></figure>
+<p>通过查询发现百度图片应该是一页只有60张图，若继续爬取应改动网址中的pn值</p>
+<p>如<code>http://image.baidu.com/search/flip?tn=baiduimage&amp;ie=utf-8&amp;word=%E5%B9%BF%E6%9C%AB%E5%87%89%E5%AD%90&amp;pn=1</code>，<code>http://image.baidu.com/search/flip?tn=baiduimage&amp;ie=utf-8&amp;word=%E5%B9%BF%E6%9C%AB%E5%87%89%E5%AD%90&amp;pn=2</code></p>
+<p>参考的是CSDN上的这篇文章</p>
+<blockquote>
+<p><a href="https://blog.csdn.net/qq_40774175/article/details/81273198">Python 爬虫系列教程一爬取批量百度图片</a></p>
+</blockquote>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://jiang849725768.github.io/post/Effective Python/">
+              <h3 class="post-title">
+                Effective Python
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://jiang849725768.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
