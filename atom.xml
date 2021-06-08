@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://jiang849725768.github.io</id>
     <title>jsk的个人空间</title>
-    <updated>2021-06-08T07:07:27.617Z</updated>
+    <updated>2021-06-08T08:56:02.551Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jiang849725768.github.io"/>
     <link rel="self" href="https://jiang849725768.github.io/atom.xml"/>
@@ -10,6 +10,135 @@
     <logo>https://jiang849725768.github.io/images/avatar.png</logo>
     <icon>https://jiang849725768.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, jsk的个人空间</rights>
+    <entry>
+        <title type="html"><![CDATA[ubuntu16 ur5 realsensed435 标定]]></title>
+        <id>https://jiang849725768.github.io/post/ubuntu16-ur5-realsensed435-biao-ding/</id>
+        <link href="https://jiang849725768.github.io/post/ubuntu16-ur5-realsensed435-biao-ding/">
+        </link>
+        <updated>2021-06-08T08:53:47.000Z</updated>
+        <content type="html"><![CDATA[<p>本科毕设需要用到手眼标定，在网上找各种教程折腾了很久，记录一下遇到的问题以及最终的成功方案。</p>
+<h1 id="ubuntu16-ur5-realsensed435-标定">ubuntu16 ur5 realsensed435 标定</h1>
+<p>主要参考博文：</p>
+<blockquote>
+<p><a href="https://zhuanlan.zhihu.com/p/92339362">【手眼标定】ros / easy_handeye + ur5 + realsense d435i</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/127803592">手眼标定（眼在手外）UR5+easy_handeye+D435i/Kinect_v2</a></p>
+</blockquote>
+<h2 id="安装配置">安装配置</h2>
+<h3 id="ros-kinetic安装">Ros-kinetic安装</h3>
+<blockquote>
+<p>参考官方文档<a href="http://wiki.ros.org/kinetic/Installation/Ubuntu">Ubuntu安装ROS kinetic</a></p>
+</blockquote>
+<pre><code class="language-bash">sudo sh -c 'echo &quot;deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main&quot; &gt; /etc/apt/sources.list.d/ros-latest.list'
+sudo apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
+sudo apt-get update
+sudo apt-get install ros-kinetic-desktop-full
+echo &quot;source /opt/ros/kinetic/setup.bash&quot; &gt;&gt; ~/.bashrc
+source ~/.bashrc
+sudo apt-get install python-rosdep python-rosinstall python-rosinstall-generator python-wstool build-essential
+sudo apt-get install python-rosdep
+sudo rosdep init
+rosdep update
+</code></pre>
+<h3 id="其余配置">其余配置</h3>
+<p>由于easy_handeye包版本更新，安装最新版本包后会出现无法加载rqt界面的问题，因此采用<a href="https://zhuanlan.zhihu.com/p/127803592">手眼标定（眼在手外）UR5+easy_handeye+D435i/Kinect_v2</a>中提供的旧包，应该是0.30.0的版本，所对应的librealsense版本为2.44.0</p>
+<h4 id="源码安装-librealsense">源码安装 librealsense</h4>
+<p>更新系统</p>
+<pre><code class="language-bash">sudo apt-get update &amp;&amp; sudo apt-get upgrade &amp;&amp; sudo apt-get dist-upgrade
+</code></pre>
+<p>下载librealsense源码</p>
+<pre><code class="language-bash">git clone -b v2.44.0 https://github.com/IntelRealSense/librealsense.git
+</code></pre>
+<p>安装依赖，若有realsense连接先拔出</p>
+<pre><code class="language-bash">sudo apt-get install git libssl-dev libusb-1.0-0-dev pkg-config libgtk-3-dev
+sudo apt-get install libglfw3-dev
+</code></pre>
+<p>进入安装包根目录运行权限脚本</p>
+<pre><code class="language-bash">./scripts/patch-realsense-ubuntu-lts.sh
+</code></pre>
+<p>下载修补模块(时间较长，耐心等待)</p>
+<pre><code class="language-bash">./scripts/patch-realsense-ubuntu-lts.sh
+</code></pre>
+<p>编译安装</p>
+<pre><code class="language-bash">mkdir build &amp;&amp; cd build
+cmake ../ -DCMAKE_BUILD_TYPE=Release -DBUILD_EXAMPLES=true
+sudo make uninstall &amp;&amp; make clean &amp;&amp; make -j8 &amp;&amp; sudo make install
+</code></pre>
+<h4 id="源码安装其余各包">源码安装其余各包</h4>
+<p>下载源码</p>
+<pre><code class="language-bash">cd ~ &amp;&amp; mkdir -p catkin_ws/src
+git clone https://github.com/lochinasc1017/UR5_easyhandeye_D435i_Calibration.git
+cp ./UR5_easyhandeye_D435i_Calibration/{aruco_ros,easy_handeye,universal_robot,vision_visp} ~/catkin_ws/src
+cd catkin_ws/src
+git clone -b 2.2.24 https://github.com/IntelRealSense/realsense-ros.git
+sudo apt-get install ros-kinetic-ddynamic-reconfigure
+</code></pre>
+<p>安装依赖</p>
+<pre><code class="language-bash">rosdep install --from-paths . --rosdistro kinetic  --ignore-src
+</code></pre>
+<p>执行编译</p>
+<pre><code class="language-bash">cd ~/catkin_ws/
+catkin_make -DCATKIN_ENABLE_TESTING=False -DCMAKE_BUILD_TYPE=Release
+catkin_make install
+catkin_make --pkg visp_hand2eye_calibration
+catkin_make
+echo &quot;source ~/catkin_ws/devel/setup.bash&quot; &gt;&gt; ~/.bashrc
+source ~/.bashrc
+</code></pre>
+<h3 id="潜在问题">潜在问题</h3>
+<h4 id="问题一">问题一</h4>
+<p>如果出现 <code>Could not find a package configuration file provided by XXX</code>:</p>
+<blockquote>
+<p><a href="https://blog.csdn.net/qq_16775293/article/details/109330494">ROS——工程编译出错</a></p>
+</blockquote>
+<pre><code class="language-bash">sudo apt-get install ros-kinetic-XXX
+</code></pre>
+<p>XXX中若有下划线<code>_</code>，需更改成连字符<code>-</code></p>
+<h4 id="问题二">问题二</h4>
+<p>无<code>catkin_make</code>操作：</p>
+<p>安装catkin：</p>
+<blockquote>
+<p><a href="https://blog.csdn.net/qq_41808841/article/details/111078944">ubuntu16.04 无catkin_make 解决方法</a></p>
+</blockquote>
+<pre><code class="language-bash">sudo apt-get install git
+
+git clone https://github.com/ros/catkin
+
+sudo apt-get install cmake python-catkin-pkg python-empy python-nose python-setuptools libgtest-dev build-essential
+
+cd catkin
+
+mkdir build
+
+cd build
+
+cmake -DCMAKE_BUILD_TYPE=Release ../
+
+make
+
+sudo make install
+</code></pre>
+<p>如仍有问题可尝试安装catkintools</p>
+<blockquote>
+<p><a href="https://blog.csdn.net/weixin_30608131/article/details/96421520">catkin-tools安装</a></p>
+</blockquote>
+<pre><code class="language-bash">sudo sh -c 'echo &quot;deb http://packages.ros.org/ros/ubuntu `lsb_release -sc` main&quot; &gt; /etc/apt/sources.list.d/ros-latest.list'
+wget http://packages.ros.org/ros.key -O - | sudo apt-key add -
+
+sudo apt-get update
+sudo apt-get install python-catkin-tools
+</code></pre>
+<h2 id="眼在手外标定">眼在手外标定</h2>
+<p><a href="https://zhuanlan.zhihu.com/p/92339362">【手眼标定】ros / easy_handeye + ur5 + realsense d435i</a>里讲得很明确，也可使用</p>
+<pre><code class="language-bash">roslaunch easy_handeye ur5_d435i_calibration.launch
+</code></pre>
+<p><strong>记得修改aruco二维码编号和机器人ip地址</strong></p>
+<h3 id="潜在问题-2">潜在问题</h3>
+<h4 id="take-sample黑屏闪退">take sample黑屏闪退</h4>
+<p>机械臂位置不对，多调调</p>
+<h4 id="check-starting-pose始终提示无法标定">Check starting pose始终提示无法标定</h4>
+<p>机械臂位置不对，多调调</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[win10常用软件记录]]></title>
         <id>https://jiang849725768.github.io/post/win10常用软件记录/</id>

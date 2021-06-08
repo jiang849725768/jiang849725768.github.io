@@ -1,0 +1,322 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ubuntu16 ur5 realsensed435 标定 | jsk的个人空间</title>
+<link rel="shortcut icon" href="https://jiang849725768.github.io/favicon.ico?v=1623142542744">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://jiang849725768.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="ubuntu16 ur5 realsensed435 标定 | jsk的个人空间 - Atom Feed" href="https://jiang849725768.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="本科毕设需要用到手眼标定，在网上找各种教程折腾了很久，记录一下遇到的问题以及最终的成功方案。
+ubuntu16 ur5 realsensed435 标定
+主要参考博文：
+
+【手眼标定】ros / easy_handeye + ur5 + r..." />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://jiang849725768.github.io">
+  <img class="avatar" src="https://jiang849725768.github.io/images/avatar.png?v=1623142542744" alt="">
+  </a>
+  <h1 class="site-title">
+    jsk的个人空间
+  </h1>
+  <p class="site-description">
+    记录一些杂思
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              ubuntu16 ur5 realsensed435 标定
+            </h2>
+            <div class="post-info">
+              <span>
+                2021-06-08
+              </span>
+              <span>
+                4 min read
+              </span>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>本科毕设需要用到手眼标定，在网上找各种教程折腾了很久，记录一下遇到的问题以及最终的成功方案。</p>
+<h1 id="ubuntu16-ur5-realsensed435-标定">ubuntu16 ur5 realsensed435 标定</h1>
+<p>主要参考博文：</p>
+<blockquote>
+<p><a href="https://zhuanlan.zhihu.com/p/92339362">【手眼标定】ros / easy_handeye + ur5 + realsense d435i</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/127803592">手眼标定（眼在手外）UR5+easy_handeye+D435i/Kinect_v2</a></p>
+</blockquote>
+<h2 id="安装配置">安装配置</h2>
+<h3 id="ros-kinetic安装">Ros-kinetic安装</h3>
+<blockquote>
+<p>参考官方文档<a href="http://wiki.ros.org/kinetic/Installation/Ubuntu">Ubuntu安装ROS kinetic</a></p>
+</blockquote>
+<pre><code class="language-bash">sudo sh -c 'echo &quot;deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main&quot; &gt; /etc/apt/sources.list.d/ros-latest.list'
+sudo apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
+sudo apt-get update
+sudo apt-get install ros-kinetic-desktop-full
+echo &quot;source /opt/ros/kinetic/setup.bash&quot; &gt;&gt; ~/.bashrc
+source ~/.bashrc
+sudo apt-get install python-rosdep python-rosinstall python-rosinstall-generator python-wstool build-essential
+sudo apt-get install python-rosdep
+sudo rosdep init
+rosdep update
+</code></pre>
+<h3 id="其余配置">其余配置</h3>
+<p>由于easy_handeye包版本更新，安装最新版本包后会出现无法加载rqt界面的问题，因此采用<a href="https://zhuanlan.zhihu.com/p/127803592">手眼标定（眼在手外）UR5+easy_handeye+D435i/Kinect_v2</a>中提供的旧包，应该是0.30.0的版本，所对应的librealsense版本为2.44.0</p>
+<h4 id="源码安装-librealsense">源码安装 librealsense</h4>
+<p>更新系统</p>
+<pre><code class="language-bash">sudo apt-get update &amp;&amp; sudo apt-get upgrade &amp;&amp; sudo apt-get dist-upgrade
+</code></pre>
+<p>下载librealsense源码</p>
+<pre><code class="language-bash">git clone -b v2.44.0 https://github.com/IntelRealSense/librealsense.git
+</code></pre>
+<p>安装依赖，若有realsense连接先拔出</p>
+<pre><code class="language-bash">sudo apt-get install git libssl-dev libusb-1.0-0-dev pkg-config libgtk-3-dev
+sudo apt-get install libglfw3-dev
+</code></pre>
+<p>进入安装包根目录运行权限脚本</p>
+<pre><code class="language-bash">./scripts/patch-realsense-ubuntu-lts.sh
+</code></pre>
+<p>下载修补模块(时间较长，耐心等待)</p>
+<pre><code class="language-bash">./scripts/patch-realsense-ubuntu-lts.sh
+</code></pre>
+<p>编译安装</p>
+<pre><code class="language-bash">mkdir build &amp;&amp; cd build
+cmake ../ -DCMAKE_BUILD_TYPE=Release -DBUILD_EXAMPLES=true
+sudo make uninstall &amp;&amp; make clean &amp;&amp; make -j8 &amp;&amp; sudo make install
+</code></pre>
+<h4 id="源码安装其余各包">源码安装其余各包</h4>
+<p>下载源码</p>
+<pre><code class="language-bash">cd ~ &amp;&amp; mkdir -p catkin_ws/src
+git clone https://github.com/lochinasc1017/UR5_easyhandeye_D435i_Calibration.git
+cp ./UR5_easyhandeye_D435i_Calibration/{aruco_ros,easy_handeye,universal_robot,vision_visp} ~/catkin_ws/src
+cd catkin_ws/src
+git clone -b 2.2.24 https://github.com/IntelRealSense/realsense-ros.git
+sudo apt-get install ros-kinetic-ddynamic-reconfigure
+</code></pre>
+<p>安装依赖</p>
+<pre><code class="language-bash">rosdep install --from-paths . --rosdistro kinetic  --ignore-src
+</code></pre>
+<p>执行编译</p>
+<pre><code class="language-bash">cd ~/catkin_ws/
+catkin_make -DCATKIN_ENABLE_TESTING=False -DCMAKE_BUILD_TYPE=Release
+catkin_make install
+catkin_make --pkg visp_hand2eye_calibration
+catkin_make
+echo &quot;source ~/catkin_ws/devel/setup.bash&quot; &gt;&gt; ~/.bashrc
+source ~/.bashrc
+</code></pre>
+<h3 id="潜在问题">潜在问题</h3>
+<h4 id="问题一">问题一</h4>
+<p>如果出现 <code>Could not find a package configuration file provided by XXX</code>:</p>
+<blockquote>
+<p><a href="https://blog.csdn.net/qq_16775293/article/details/109330494">ROS——工程编译出错</a></p>
+</blockquote>
+<pre><code class="language-bash">sudo apt-get install ros-kinetic-XXX
+</code></pre>
+<p>XXX中若有下划线<code>_</code>，需更改成连字符<code>-</code></p>
+<h4 id="问题二">问题二</h4>
+<p>无<code>catkin_make</code>操作：</p>
+<p>安装catkin：</p>
+<blockquote>
+<p><a href="https://blog.csdn.net/qq_41808841/article/details/111078944">ubuntu16.04 无catkin_make 解决方法</a></p>
+</blockquote>
+<pre><code class="language-bash">sudo apt-get install git
+
+git clone https://github.com/ros/catkin
+
+sudo apt-get install cmake python-catkin-pkg python-empy python-nose python-setuptools libgtest-dev build-essential
+
+cd catkin
+
+mkdir build
+
+cd build
+
+cmake -DCMAKE_BUILD_TYPE=Release ../
+
+make
+
+sudo make install
+</code></pre>
+<p>如仍有问题可尝试安装catkintools</p>
+<blockquote>
+<p><a href="https://blog.csdn.net/weixin_30608131/article/details/96421520">catkin-tools安装</a></p>
+</blockquote>
+<pre><code class="language-bash">sudo sh -c 'echo &quot;deb http://packages.ros.org/ros/ubuntu `lsb_release -sc` main&quot; &gt; /etc/apt/sources.list.d/ros-latest.list'
+wget http://packages.ros.org/ros.key -O - | sudo apt-key add -
+
+sudo apt-get update
+sudo apt-get install python-catkin-tools
+</code></pre>
+<h2 id="眼在手外标定">眼在手外标定</h2>
+<p><a href="https://zhuanlan.zhihu.com/p/92339362">【手眼标定】ros / easy_handeye + ur5 + realsense d435i</a>里讲得很明确，也可使用</p>
+<pre><code class="language-bash">roslaunch easy_handeye ur5_d435i_calibration.launch
+</code></pre>
+<p><strong>记得修改aruco二维码编号和机器人ip地址</strong></p>
+<h3 id="潜在问题-2">潜在问题</h3>
+<h4 id="take-sample黑屏闪退">take sample黑屏闪退</h4>
+<p>机械臂位置不对，多调调</p>
+<h4 id="check-starting-pose始终提示无法标定">Check starting pose始终提示无法标定</h4>
+<p>机械臂位置不对，多调调</p>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#ubuntu16-ur5-realsensed435-%E6%A0%87%E5%AE%9A">ubuntu16 ur5 realsensed435 标定</a>
+<ul>
+<li><a href="#%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE">安装配置</a>
+<ul>
+<li><a href="#ros-kinetic%E5%AE%89%E8%A3%85">Ros-kinetic安装</a></li>
+<li><a href="#%E5%85%B6%E4%BD%99%E9%85%8D%E7%BD%AE">其余配置</a>
+<ul>
+<li><a href="#%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85-librealsense">源码安装 librealsense</a></li>
+<li><a href="#%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85%E5%85%B6%E4%BD%99%E5%90%84%E5%8C%85">源码安装其余各包</a></li>
+</ul>
+</li>
+<li><a href="#%E6%BD%9C%E5%9C%A8%E9%97%AE%E9%A2%98">潜在问题</a>
+<ul>
+<li><a href="#%E9%97%AE%E9%A2%98%E4%B8%80">问题一</a></li>
+<li><a href="#%E9%97%AE%E9%A2%98%E4%BA%8C">问题二</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E7%9C%BC%E5%9C%A8%E6%89%8B%E5%A4%96%E6%A0%87%E5%AE%9A">眼在手外标定</a>
+<ul>
+<li><a href="#%E6%BD%9C%E5%9C%A8%E9%97%AE%E9%A2%98-2">潜在问题</a>
+<ul>
+<li><a href="#take-sample%E9%BB%91%E5%B1%8F%E9%97%AA%E9%80%80">take sample黑屏闪退</a></li>
+<li><a href="#check-starting-pose%E5%A7%8B%E7%BB%88%E6%8F%90%E7%A4%BA%E6%97%A0%E6%B3%95%E6%A0%87%E5%AE%9A">Check starting pose始终提示无法标定</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://jiang849725768.github.io/post/win10常用软件记录/">
+              <h3 class="post-title">
+                win10常用软件记录
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://jiang849725768.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
