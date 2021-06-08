@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://jiang849725768.github.io</id>
     <title>jsk的个人空间</title>
-    <updated>2021-06-08T06:54:20.647Z</updated>
+    <updated>2021-06-08T06:56:01.988Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jiang849725768.github.io"/>
     <link rel="self" href="https://jiang849725768.github.io/atom.xml"/>
@@ -17,7 +17,7 @@
         </link>
         <updated>2021-06-07T08:38:36.000Z</updated>
         <content type="html"><![CDATA[<p><ul class="markdownIt-TOC">
-<li>
+<li><a href="#win10%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E8%AE%B0%E5%BD%95">win10常用软件记录</a>
 <ul>
 <li><a href="#%E6%96%87%E4%BB%B6%E8%BD%AF%E4%BB%B6%E7%AE%A1%E7%90%86">文件/软件管理</a>
 <ul>
@@ -74,6 +74,7 @@
 </ul>
 </p>
 <p>时隔一年又重新捡起了博客，这次换用了国人开发的Gridea，新开始的第一篇博客打算对平时常用的众多高效windows软件进行一个记录。</p>
+<h1 id="win10常用软件记录">win10常用软件记录</h1>
 <h2 id="文件软件管理">文件/软件管理</h2>
 <h3 id="listary">Listary</h3>
 <p><a href="https://www.listary.com/">官网(5)</a> <a href="https://www.listary.com/beta">Listary 6</a></p>
