@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>http://localhost:4000</id>
+    <id>https://jiang849725768.github.io</id>
     <title>jsk的个人空间</title>
-    <updated>2021-06-12T06:19:14.195Z</updated>
+    <updated>2021-06-17T12:30:42.193Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="http://localhost:4000"/>
-    <link rel="self" href="http://localhost:4000/atom.xml"/>
+    <link rel="alternate" href="https://jiang849725768.github.io"/>
+    <link rel="self" href="https://jiang849725768.github.io/atom.xml"/>
     <subtitle>记录一些杂思</subtitle>
-    <logo>http://localhost:4000/images/avatar.png</logo>
-    <icon>http://localhost:4000/favicon.ico</icon>
+    <logo>https://jiang849725768.github.io/images/avatar.png</logo>
+    <icon>https://jiang849725768.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, jsk的个人空间</rights>
     <entry>
         <title type="html"><![CDATA[ubuntu16 ur5 realsensed435 标定]]></title>
-        <id>http://localhost:4000/post/ubuntu16-ur5-realsensed435-biao-ding/</id>
-        <link href="http://localhost:4000/post/ubuntu16-ur5-realsensed435-biao-ding/">
+        <id>https://jiang849725768.github.io/post/ubuntu16-ur5-realsensed435-biao-ding/</id>
+        <link href="https://jiang849725768.github.io/post/ubuntu16-ur5-realsensed435-biao-ding/">
         </link>
         <updated>2021-06-08T08:53:47.000Z</updated>
         <content type="html"><![CDATA[<p>本科毕设需要用到手眼标定，在网上找各种教程折腾了很久，记录一下遇到的问题以及最终的成功方案。</p>
@@ -141,8 +141,8 @@ sudo apt-get install python-catkin-tools
     </entry>
     <entry>
         <title type="html"><![CDATA[win10常用软件记录]]></title>
-        <id>http://localhost:4000/post/win10常用软件记录/</id>
-        <link href="http://localhost:4000/post/win10常用软件记录/">
+        <id>https://jiang849725768.github.io/post/win10常用软件记录/</id>
+        <link href="https://jiang849725768.github.io/post/win10常用软件记录/">
         </link>
         <updated>2021-06-07T08:38:36.000Z</updated>
         <content type="html"><![CDATA[<p><ul class="markdownIt-TOC">
@@ -301,8 +301,8 @@ sudo apt-get install python-catkin-tools
     </entry>
     <entry>
         <title type="html"><![CDATA[初识爬虫]]></title>
-        <id>http://localhost:4000/post/初识爬虫/</id>
-        <link href="http://localhost:4000/post/初识爬虫/">
+        <id>https://jiang849725768.github.io/post/初识爬虫/</id>
+        <link href="https://jiang849725768.github.io/post/初识爬虫/">
         </link>
         <updated>2020-03-10T00:54:30.000Z</updated>
         <content type="html"><![CDATA[<p>初学python爬虫，尝试爬取指定的百度图片，主要使用requests库以及正则表达式搜索</p>
@@ -389,8 +389,8 @@ print('下载结束')
     </entry>
     <entry>
         <title type="html"><![CDATA[Effective Python]]></title>
-        <id>http://localhost:4000/post/Effective Python/</id>
-        <link href="http://localhost:4000/post/Effective Python/">
+        <id>https://jiang849725768.github.io/post/Effective Python/</id>
+        <link href="https://jiang849725768.github.io/post/Effective Python/">
         </link>
         <updated>2020-02-12T00:29:26.000Z</updated>
         <content type="html"><![CDATA[<p>主要记录阅读《Effective Python》一书中发现的对于现阶段我编写代码有帮助的内容。</p>
