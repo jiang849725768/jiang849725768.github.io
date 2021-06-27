@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://jiang849725768.github.io</id>
     <title>jsk的个人空间</title>
-    <updated>2021-06-17T12:30:42.193Z</updated>
+    <updated>2021-06-27T07:12:40.374Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jiang849725768.github.io"/>
     <link rel="self" href="https://jiang849725768.github.io/atom.xml"/>
@@ -10,6 +10,43 @@
     <logo>https://jiang849725768.github.io/images/avatar.png</logo>
     <icon>https://jiang849725768.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, jsk的个人空间</rights>
+    <entry>
+        <title type="html"><![CDATA[令我愉悦的事物]]></title>
+        <id>https://jiang849725768.github.io/post/ling-wo-yu-yue-de-shi-wu/</id>
+        <link href="https://jiang849725768.github.io/post/ling-wo-yu-yue-de-shi-wu/">
+        </link>
+        <updated>2021-06-27T07:11:30.000Z</updated>
+        <content type="html"><![CDATA[<p>一点点茉莉绿茶加冰淇凌加红豆七分甜</p>
+<p>代码成功通过编译</p>
+<p>从超市拎着一大袋零食回家</p>
+<p>和朋友出去唱一下午歌然后吃快餐</p>
+<p>开玩笑似地说出我喜欢你并期待回应</p>
+<p>想要吃汉堡，于是乘着风骑车去汉堡王</p>
+<p>一个拥抱</p>
+<p>凌晨一点半的街上散步</p>
+<p>早起一杯咖啡，睡前一杯牛奶</p>
+<p>长泽雅美和广末凉子的笑容</p>
+<p>沉浸于自己喜欢的香气</p>
+<p>下决心买了自己喜欢的衣服</p>
+<p>第一次尝试衣服搭配的效果很满意</p>
+<p>寒冷天气的阳光</p>
+<p>秋日限定</p>
+<p>热水澡</p>
+<p>突然开始记日记</p>
+<p>梦到路边的车筐里都躺着小猫</p>
+<p>折腾一晚上写完了作业</p>
+<p>有人愿意支持我</p>
+<p>站在阳台望远</p>
+<p>收到他人的信</p>
+<p>考完研究生考试</p>
+<p>吃完午饭迎着阳光散步回宿舍</p>
+<p>听到喜欢的歌</p>
+<p>每天晚上上床的那一刻</p>
+<p>“那就试试吧”</p>
+<p>迪士尼乐园</p>
+<p>情侣头像，一起听歌</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[ubuntu16 ur5 realsensed435 标定]]></title>
         <id>https://jiang849725768.github.io/post/ubuntu16-ur5-realsensed435-biao-ding/</id>
