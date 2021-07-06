@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://jiang849725768.github.io</id>
     <title>jsk的个人空间</title>
-    <updated>2021-07-06T07:57:41.001Z</updated>
+    <updated>2021-07-06T15:59:15.856Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jiang849725768.github.io"/>
     <link rel="self" href="https://jiang849725768.github.io/atom.xml"/>
@@ -10,6 +10,19 @@
     <logo>https://jiang849725768.github.io/images/avatar.png</logo>
     <icon>https://jiang849725768.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, jsk的个人空间</rights>
+    <entry>
+        <title type="html"><![CDATA[边缘]]></title>
+        <id>https://jiang849725768.github.io/post/bian-yuan/</id>
+        <link href="https://jiang849725768.github.io/post/bian-yuan/">
+        </link>
+        <updated>2021-07-06T14:42:12.000Z</updated>
+        <content type="html"><![CDATA[<p>好累<br>
+你不喜欢我，也不爱你自己。我喜欢你，更爱我自己。我觉得很累。<br>
+我们的聊天方式又回到了试试之前，我发现你更习惯这种方式，你又开始长久地不回消息，我觉得你开始像完成任务一样同我分享生活，即使在言语上，也更少表达喜欢了，你说你容易和他人共情，想必他人里是不包括我的，不然不至于让我在现在写出这篇文章。你那天晚上说，你是喜欢我的，为什么要这么说呢，一开始不这么说，想必现在我们两个都会更开心一些。我觉得一个人总是在怀疑对方是否喜欢自己时，答案已经不言自明了。我很痛苦，你从前拒绝我的时候说自己早就丧失了喜欢别人的能力，那他呢。我意识到原来之前的我是连朋友都不算的，如果我到了朋友的层次，至少我会知道他的存在，而不是通过这种偶然突然发现，我好像只是你倾倒情绪的垃圾桶。我不想只是当一个垃圾桶。<br>
+你对自己也很差，你熬夜，不吃饭，自己不舒服也不在意，然后把这些一股脑地告诉我，我难过了，我担心了，然后你继续这样。干嘛这样折磨我呢。一个人只有学会爱自己，才会去爱别人，从我的角度看来，也许你说你丧失了爱人能力的根源在这里。<br>
+我对你的要求只有喜欢我和照顾好自己两条，然后我在这两条上都倍受打击，我打这些字的时候，还在想着你会不会还是试探，还是在考验我。算了吧，这样的想法太卑微了，我不要做这样的人。</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[令我愉悦的事物]]></title>
         <id>https://jiang849725768.github.io/post/ling-wo-yu-yue-de-shi-wu/</id>
